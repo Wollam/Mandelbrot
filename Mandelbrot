@@ -33,8 +33,6 @@ def tekenGrafiek():
     yMid = hoog//2
     schaal = 0.04
 
-    draw.line(((0,yMid),(breed,yMid)), fill="red")
-    draw.line(((xMid,0),(xMid,hoog)), fill="red")
     global foto
     foto = PhotoImage(plaatje)
     grafiek.configure(image=foto)
