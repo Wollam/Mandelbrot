@@ -1,1 +1,59 @@
 Hallo
+from tkinter import Frame, Label, Entry
+from PIL.ImageDraw import Draw
+from PIL.ImageTk import PhotoImage
+from PIL import Image
+import math
+
+scherm = Frame()
+scherm.master.title("Mandelbrot")
+scherm.configure(width=380, height=500)
+scherm.pack()
+
+font=("Arial", 10)
+labelx= Label(scherm, font=font, text="middenpunt x:"); labelx.place(x=10,y= 20);
+labely = Label(scherm, font=font, text="middenpunt y:"); labely.place(x=10,y= 50);
+labels = Label(scherm, font=font, text="schaal:"); labels.place(x=10,y=80);
+labela = Label(scherm, font=font, text="maximaal aantal:"); labela.place(x=10,y=110);
+inputx = Entry(scherm, font=font, width=10); inputx.place(x=95,y= 20); inputx.insert(0, str(0.5))
+inputy = Entry(scherm, font=font, width=10); inputy.place(x=95,y= 50); inputy.insert(0, str(1 ))
+inputs= Entry(scherm, font=font, width=10); inputs.place(x=55,y=80); inputs.insert(0, str(-3 ))
+inputa= Entry(scherm, font=font, width=10); inputa.place(x=115,y=110); inputa.insert(0, str( ))
+grafiek = Label(scherm, background="lightgrey"); grafiek.place(x=20,y=150)
+nulpunt = Label(scherm); nulpunt.place(x=10,y=150)
+
+a=0; b=0; c=0 # globale toestand-variabelen
+breed=300; hoog=300
+
+def tekenGrafiek():
+    plaatje = Image.new(mode="RGBA", size=(breed,hoog))
+    draw = Draw(plaatje)
+
+    xMid = breed//2
+    yMid = hoog//2
+    schaal = 0.04
+
+    draw.line(((0,yMid),(breed,yMid)), fill="red")
+    draw.line(((xMid,0),(xMid,hoog)), fill="red")
+    global foto
+    foto = PhotoImage(plaatje)
+    grafiek.configure(image=foto)
+
+def boxVeranderd(ea):
+    global a, b, c
+    try:
+        a = float(inputx.get()); inputx.configure(background="white")
+        b = float(inputy.get()); inputy.configure(background="white")
+        c = float(inputs.get()); inputs.configure(background="white")
+        tekenGrafiek()
+        nulpunt.configure()
+    except Exception as exc:
+        ea.widget.configure(background="tomato")
+        nulpunt.configure(text=str(exc))
+
+inputx.bind("<KeyRelease>", boxVeranderd)
+inputy.bind("<KeyRelease>", boxVeranderd)
+inputs.bind("<KeyRelease>", boxVeranderd)
+
+boxVeranderd(None)
+scherm.mainloop()
