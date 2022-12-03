@@ -11,14 +11,14 @@ scherm.configure(width=380, height=500)
 scherm.pack()
 
 font=("Arial", 10)
-labelx= Label(scherm, font=font, text="middenpunt x:"); labelx.place(x=10,y= 20);
-labely = Label(scherm, font=font, text="middenpunt y:"); labely.place(x=10,y= 50);
-labels = Label(scherm, font=font, text="schaal:"); labels.place(x=10,y=80);
-labela = Label(scherm, font=font, text="maximaal aantal:"); labela.place(x=10,y=110);
-inputx = Entry(scherm, font=font, width=10); inputx.place(x=95,y= 20); inputx.insert(0, str(0.5))
-inputy = Entry(scherm, font=font, width=10); inputy.place(x=95,y= 50); inputy.insert(0, str(1 ))
-inputs= Entry(scherm, font=font, width=10); inputs.place(x=55,y=80); inputs.insert(0, str(-3 ))
-inputa= Entry(scherm, font=font, width=10); inputa.place(x=115,y=110); inputa.insert(0, str( ))
+labelx= Label(scherm, font=font, text="Middenpunt x:"); labelx.place(x=10,y= 20);
+labely = Label(scherm, font=font, text="Middenpunt y:"); labely.place(x=10,y= 50);
+labels = Label(scherm, font=font, text="Schaal:"); labels.place(x=10,y=80);
+labela = Label(scherm, font=font, text="Maximaal aantal:"); labela.place(x=10,y=110);
+inputx = Entry(scherm, font=font, width=10); inputx.place(x=120,y= 20); inputx.insert(0, str(0.5))
+inputy = Entry(scherm, font=font, width=10); inputy.place(x=120,y= 50); inputy.insert(0, str(1 ))
+inputs= Entry(scherm, font=font, width=10); inputs.place(x=120,y=80); inputs.insert(0, str(-3 ))
+inputa= Entry(scherm, font=font, width=10); inputa.place(x=120,y=110); inputa.insert(0, str( ))
 grafiek = Label(scherm, background="lightgrey"); grafiek.place(x=20,y=150)
 nulpunt = Label(scherm); nulpunt.place(x=10,y=150)
 
