@@ -54,20 +54,6 @@ inputx.bind("<KeyRelease>", boxVeranderd)
 inputy.bind("<KeyRelease>", boxVeranderd)
 inputs.bind("<KeyRelease>", boxVeranderd)
 
-def Mandelgetal():
-    boxVeranderd()
-    x = a
-    y = b
-    getal = 1
-    while ((math.sqrt(x*x + y*y)) < 2):
-        d = x
-        e = y
-        x = (d*d) - (d*d) + a
-        y = (d*e*2) + b
-        getal = getal + 1
-        if getal == herhalingen:
-            break
-    return getal
   
 boxVeranderd(None)
 scherm.mainloop()
