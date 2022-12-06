@@ -21,7 +21,8 @@ inputa= Entry(scherm, font=font, width=10); inputa.place(x=120,y=110); inputa.in
 grafiek = Label(scherm, background="lightgrey"); grafiek.place(x=10,y=150)
 nulpunt = Label(scherm); nulpunt.place(x=200,y=10)
 knop = Button(scherm, text="Plot!", width=10); knop.place (x=200,y=110)
-
+slider = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
+slider.place(x=10, y = 460)
   
 
 a=0; b=0; c=0; herhalingen=100 # globale toestand-variabelen
@@ -42,11 +43,18 @@ def Mandelpunt():
                 f = (d*d) - (e*e) + x
                 g = (d*e*2) + y
                 getal = getal + 1
-            if (getal%2) == 0:
-                    color = 0
+           if getal == herhalingen:
+                red = int(h)
+                blue = int(h)
+                green = int(h)
             else:
-                    color= 255  
-            plaatje.putpixel( (q,z), (color,color,color) )
+                h = slider.get()/256*100/getal * 2.5
+                blue= int(255-h)
+                red = int(h)
+                green = int(127.5*h)
+
+ 
+            plaatje.putpixel( (q,z), (blue,red,green) )
     global foto    
     foto = PhotoImage(plaatje)
     grafiek.configure(image=foto)
