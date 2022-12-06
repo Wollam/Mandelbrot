@@ -6,7 +6,7 @@ import math
 
 scherm = Frame()
 scherm.master.title("Mandelbrot")
-scherm.configure(width=380, height=500)
+scherm.configure(width=450, height=500)
 scherm.pack()
 
 font=("Arial", 10)
