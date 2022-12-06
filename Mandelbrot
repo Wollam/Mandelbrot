@@ -51,7 +51,7 @@ def Mandelpunt():
     grafiek.configure(image=foto)
 
 
-def boxVeranderd():
+def boxVeranderd(ea):
     global a, b, c, herhalingen
     try:
         a = float(inputx.get()); inputx.configure(background="white")
@@ -78,7 +78,7 @@ def inzoom(ea):
     inputy.insert(0, float(Yy))
     inputs.insert(0, float(f))
 
-    boxVeranderd()
+    boxVeranderd(None)
 
 
 def uitzoom(ea):
@@ -96,12 +96,12 @@ def uitzoom(ea):
     inputy.insert(0, float(Yy))
     inputs.insert(0, float(f))
 
-    boxVeranderd()
+    boxVeranderd(None)
         
 knop.bind("<Button-1>", boxVeranderd)
 grafiek.bind("<Button-1>", inzoom)
 grafiek.bind("<Button-3>", uitzoom)
 
-boxVeranderd()
+boxVeranderd(None)
 scherm.mainloop()
 
