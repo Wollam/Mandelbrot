@@ -32,20 +32,21 @@ def Mandelpunt():
     for q in range (0,breed):
         for z in range (0,hoog):
             x = (a - c*(breed)/2) + (c*q)
-            y = (b - c*(hoog)/2) + (c*z)
+            y = (b + c*(hoog)/2) - (c*z)
+            f = x
+            g = y
             getal = 1
-            while ((math.sqrt(x*x + y*y)) < 2) and (getal < herhalingen):
-                d = x
-                e = y
-                x = (d*d) - (e*e) + x
-                y = (d*e*2) + y
+            while ((math.sqrt(f**2 + g**2)) < 2) and (getal < herhalingen):
+                d = f 
+                e = g 
+                f = (d*d) - (e*e) + x
+                g = (d*e*2) + y
                 getal = getal + 1
-            if getal == herhalingen:
-                color = 0
+            if (getal%2) == 0:
+                    color = 0
             else:
-                color= int(255/getal)
-            
-            plaatje.putpixel( (q,z), (color,0,0) )
+                    color= 255  
+            plaatje.putpixel( (q,z), (color,color,color) )
     global foto    
     foto = PhotoImage(plaatje)
     grafiek.configure(image=foto)
