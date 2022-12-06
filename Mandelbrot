@@ -37,7 +37,7 @@ def Mandelpunt():
             while ((math.sqrt(x*x + y*y)) < 2) and (getal < herhalingen):
                 d = x
                 e = y
-                x = (d*d) - (d*d) + x
+                x = (d*d) - (e*e) + x
                 y = (d*e*2) + y
                 getal = getal + 1
             if getal == herhalingen:
