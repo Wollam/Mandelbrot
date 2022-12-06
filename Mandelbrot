@@ -1,5 +1,4 @@
-Hallo
-from tkinter import Frame, Label, Entry
+from tkinter import Frame, Label, Entry, Button 
 from PIL.ImageDraw import Draw
 from PIL.ImageTk import PhotoImage
 from PIL import Image
@@ -15,45 +14,59 @@ labelx= Label(scherm, font=font, text="Middenpunt x:"); labelx.place(x=10,y= 20)
 labely = Label(scherm, font=font, text="Middenpunt y:"); labely.place(x=10,y= 50);
 labels = Label(scherm, font=font, text="Schaal:"); labels.place(x=10,y=80);
 labela = Label(scherm, font=font, text="Maximaal aantal:"); labela.place(x=10,y=110);
-inputx = Entry(scherm, font=font, width=10); inputx.place(x=120,y= 20); inputx.insert(0, str(0.5))
-inputy = Entry(scherm, font=font, width=10); inputy.place(x=120,y= 50); inputy.insert(0, str(1 ))
-inputs= Entry(scherm, font=font, width=10); inputs.place(x=120,y=80); inputs.insert(0, str(-3 ))
-inputa= Entry(scherm, font=font, width=10); inputa.place(x=120,y=110); inputa.insert(0, str( ))
-grafiek = Label(scherm, background="lightgrey"); grafiek.place(x=20,y=150)
-nulpunt = Label(scherm); nulpunt.place(x=10,y=150)
+inputx = Entry(scherm, font=font, width=10); inputx.place(x=120,y= 20); inputx.insert(0, int(0))
+inputy = Entry(scherm, font=font, width=10); inputy.place(x=120,y= 50); inputy.insert(0, int(0))
+inputs= Entry(scherm, font=font, width=10); inputs.place(x=120,y=80); inputs.insert(0, int(0))
+inputa= Entry(scherm, font=font, width=10); inputa.place(x=120,y=110); inputa.insert(0, int(5))
+grafiek = Label(scherm, background="lightgrey"); grafiek.place(x=10,y=150)
+nulpunt = Label(scherm); nulpunt.place(x=200,y=10)
+knop = Button(scherm, text="Plot!", width=10); knop.place (x=200,y=110)
 
-a=0; b=0; c=0 # globale toestand-variabelen
+a=0; b=0; c=0; herhalingen=100 # globale toestand-variabelen
 breed=300; hoog=300
 
-def tekenGrafiek():
+plaatje = Image.new(mode="RGBA", size=(breed,hoog))
+
+def Mandelpunt():
+    for q in range (0,breed):
+        for z in range (0,hoog):
+            x = (a - c*(breed)/2) + (c*q)
+            y = (b - c*(hoog)/2) + (c*z)
+            getal = 1
+            while ((math.sqrt(x*x + y*y)) < 2) and (getal < herhalingen):
+                d = x
+                e = y
+                x = (d*d) - (d*d) + x
+                y = (d*e*2) + y
+                getal = getal + 1
+                if getal == herhalingen:
+                    color = 0
+                else:
+                    color= int(255/getal)
+
+
+    
+def Tekenen():
     plaatje = Image.new(mode="RGBA", size=(breed,hoog))
-    draw = Draw(plaatje)
-
-    xMid = breed//2
-    yMid = hoog//2
-    schaal = 0.04
-
-    global foto
+    plaatje.putpixel((50,50),0)
+    global foto    
     foto = PhotoImage(plaatje)
     grafiek.configure(image=foto)
 
 def boxVeranderd(ea):
-    global a, b, c
+    global a, b, c, herhalingen
     try:
         a = float(inputx.get()); inputx.configure(background="white")
         b = float(inputy.get()); inputy.configure(background="white")
         c = float(inputs.get()); inputs.configure(background="white")
-        herhalingen = float(inputs.get()); inputa.configure(background="white")
-        tekenGrafiek()
-        nulpunt.configure()
+        herhalingen = float(inputa.get()); inputa.configure(background="white")
+        Tekenen()
+        nulpunt.configure(text=())
     except Exception as exc:
-        ea.widget.configure(background="tomato")
-        nulpunt.configure(text=str(exc))
+            nulpunt.configure(text=str("Voer een numerieke waarde in."))
+        
+knop.bind("<Button-1>", boxVeranderd)
 
-inputx.bind("<KeyRelease>", boxVeranderd)
-inputy.bind("<KeyRelease>", boxVeranderd)
-inputs.bind("<KeyRelease>", boxVeranderd)
-
-  
 boxVeranderd(None)
 scherm.mainloop()
+
