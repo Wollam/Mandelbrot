@@ -51,7 +51,7 @@ def Mandelpunt():
     grafiek.configure(image=foto)
 
 
-def boxVeranderd(ea):
+def boxVeranderd():
     global a, b, c, herhalingen
     try:
         a = float(inputx.get()); inputx.configure(background="white")
@@ -62,9 +62,46 @@ def boxVeranderd(ea):
         nulpunt.configure(text=())
     except Exception as exc:
             nulpunt.configure(text=str(exc))
+
+def inzoom(ea):
+    c = float(inputs.get())
+    f = c/10
+
+    inputx.delete(0, 'end')
+    inputy.delete(0, 'end')
+    inputs.delete(0, 'end')
+    
+    Xx = float((a - c*(breed)/2) + (c*ea.x))
+    Yy = float((b + c*(hoog)/2) - (c*ea.y))
+
+    inputx.insert(0, float(Xx))
+    inputy.insert(0, float(Yy))
+    inputs.insert(0, float(f))
+
+    boxVeranderd()
+
+
+def uitzoom(ea):
+    c = float(inputs.get())
+    f = c*10
+
+    inputx.delete(0, 'end')
+    inputy.delete(0, 'end')
+    inputs.delete(0, 'end')
+    
+    Xx = float((a - c*(breed)/2) + (c*ea.x))
+    Yy = float((b + c*(hoog)/2) - (c*ea.y))
+
+    inputx.insert(0, float(Xx))
+    inputy.insert(0, float(Yy))
+    inputs.insert(0, float(f))
+
+    boxVeranderd()
         
 knop.bind("<Button-1>", boxVeranderd)
+grafiek.bind("<Button-1>", inzoom)
+grafiek.bind("<Button-3>", uitzoom)
 
-boxVeranderd(None)
+boxVeranderd()
 scherm.mainloop()
 
