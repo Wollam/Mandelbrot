@@ -44,6 +44,7 @@ def Mandelpunt():
                 g = (d*e*2) + y
                 getal = getal + 1
            if getal == herhalingen:
+                h = slider.get()/256*100/getal * 2.5
                 red = int(h)
                 blue = int(h)
                 green = int(h)
