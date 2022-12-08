@@ -121,9 +121,44 @@ def uitzoom(ea):
 
     boxVeranderd(None)
         
+def Exampel1(ea):
+    sliderblue.set(54)
+    slidergreen.set(161)
+    sliderred.set(124)
+
+    inputx.delete(0, 'end')
+    inputy.delete(0, 'end')
+    inputs.delete(0, 'end')
+    inputa.delete(0, 'end')
+
+    inputx.insert(0, float(-0.579))
+    inputy.insert(0, float(0.643))
+    inputs.insert(0, float(0.0001))
+    inputa.insert(0, int(100))
+    boxVeranderd(None)
+
+def Exampel2(ea):
+    sliderblue.set(161)
+    slidergreen.set(160)
+    sliderred.set(74)
+
+    inputx.delete(0, 'end')
+    inputy.delete(0, 'end')
+    inputs.delete(0, 'end')
+    inputa.delete(0, 'end')
+
+    inputx.insert(0, float(0.37))
+    inputy.insert(0, float(0.369))
+    inputs.insert(0, float(0.0005))
+    inputa.insert(0, int(100))
+    boxVeranderd(None)
+    
+        
 knop.bind("<Button-1>", boxVeranderd)
 grafiek.bind("<Button-1>", inzoom)
 grafiek.bind("<Button-3>", uitzoom)
+voorbeeld1.bind("<Button-1>", Exampel1)
+voorbeeld2.bind("<Button-1>", Exampel2)
 
 boxVeranderd(None)
 scherm.mainloop()
