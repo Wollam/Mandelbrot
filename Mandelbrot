@@ -54,19 +54,18 @@ def Mandelpunt():
                 red = 0
                 blue = 0
                 green = 0
-            elif getal < 2.5:
-                blue= int(sliderblue.get() * getal*2.5)
-                red = int(sliderred.get() / getal*2.5)
-                green = int(slidergreen.get() / getal*2.5)
-            elif getal < 5:
-                blue= int(sliderblue.get() / getal*2.5)
-                red = int(sliderred.get() * getal*2.5)
-                green = int(slidergreen.get() / getal*2.5)
+            elif getal % 2 == 0:
+                blue= int(sliderblue.get() * (getal*2.5))
+                red = int(sliderred.get() / (getal*2.5))
+                green = int(slidergreen.get() / (getal*2.5))
+            elif getal % 3 == 0:
+                blue= int(sliderblue.get() / (getal*2.5))
+                red = int(sliderred.get() * (getal*2.5))
+                green = int(slidergreen.get() / (getal*2.5))
             else:
-                blue= int(sliderblue.get() / getal*2.5)
-                red = int(sliderred.get() / getal*2.5)
-                green = int(slidergreen.get() * getal*2.5)
-
+                blue= int(sliderblue.get() / (getal*2.5))
+                red = int(sliderred.get() / (getal*2.5))
+                green = int(slidergreen.get() * (getal*2.5))
 
 
  
@@ -90,7 +89,7 @@ def boxVeranderd(ea):
 
 def inzoom(ea):
     c = float(inputs.get())
-    f = c/20
+    f = c/10
 
     inputx.delete(0, 'end')
     inputy.delete(0, 'end')
@@ -108,7 +107,7 @@ def inzoom(ea):
 
 def uitzoom(ea):
     c = float(inputs.get())
-    f = c*20
+    f = c*10
 
     inputx.delete(0, 'end')
     inputy.delete(0, 'end')
@@ -122,7 +121,7 @@ def uitzoom(ea):
     inputs.insert(0, float(f))
 
     boxVeranderd(None)
-        
+
 def Exampel1(ea):
     sliderblue.set(54)
     slidergreen.set(161)
