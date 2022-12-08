@@ -1,4 +1,4 @@
-from tkinter import Frame, Label, Entry, Button 
+from tkinter import Frame, Label, Entry, Button, Scale 
 from PIL.ImageDraw import Draw
 from PIL.ImageTk import PhotoImage
 from PIL import Image
