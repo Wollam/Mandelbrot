@@ -21,6 +21,8 @@ inputa= Entry(scherm, font=font, width=10); inputa.place(x=120,y=110); inputa.in
 grafiek = Label(scherm, background="lightgrey"); grafiek.place(x=10,y=150)
 nulpunt = Label(scherm); nulpunt.place(x=200,y=10)
 knop = Button(scherm, text="Plot!", width=10); knop.place (x=200,y=110)
+voorbeeld1 = Button(scherm, text="Voorbeeld 1", width =10); voorbeeld1.place (x= 300, y=20)
+voorbeeld2 = Button(scherm, text="Voorbeeld2", width = 10); voorbeeld2.place (x= 300, y=50)
 sliderred = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
 slidergreen = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
 sliderblue = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
