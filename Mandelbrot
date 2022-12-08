@@ -23,6 +23,7 @@ nulpunt = Label(scherm); nulpunt.place(x=200,y=10)
 knop = Button(scherm, text="Plot!", width=10); knop.place (x=200,y=110)
 voorbeeld1 = Button(scherm, text="Voorbeeld 1", width =10); voorbeeld1.place (x= 300, y=20)
 voorbeeld2 = Button(scherm, text="Voorbeeld2", width = 10); voorbeeld2.place (x= 300, y=50)
+voorbeeld3 = Button (scherm, text="Voorbeeld3", width = 10); voorbeeld3.place (x= 300, y=80)
 sliderred = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
 slidergreen = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
 sliderblue = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
@@ -153,13 +154,29 @@ def Exampel2(ea):
     inputs.insert(0, float(0.0005))
     inputa.insert(0, int(100))
     boxVeranderd(None)
-    
+
+def Exampel3(ea):
+    sliderblue.set(1)
+    slidergreen.set(255)
+    sliderred.set(253)
+
+    inputx.delete(0, 'end')
+    inputy.delete(0, 'end')
+    inputs.delete(0, 'end')
+    inputa.delete(0, 'end')
+
+    inputx.insert(0, float(0.384))
+    inputy.insert(0, float(0.374))
+    inputs.insert(0, float(5e-5))
+    inputa.insert(0, int(100))
+    boxVeranderd(None)
         
 knop.bind("<Button-1>", boxVeranderd)
 grafiek.bind("<Button-1>", inzoom)
 grafiek.bind("<Button-3>", uitzoom)
 voorbeeld1.bind("<Button-1>", Exampel1)
 voorbeeld2.bind("<Button-1>", Exampel2)
+voorbeeld3.bind("<Button-1>", Exampel3)
 
 boxVeranderd(None)
 scherm.mainloop()
