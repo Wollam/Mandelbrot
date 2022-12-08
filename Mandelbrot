@@ -1,1 +1,130 @@
-Hallo
+from tkinter import Frame, Label, Entry, Button, Scale
+from PIL.ImageDraw import Draw
+from PIL.ImageTk import PhotoImage
+from PIL import Image
+import math
+
+scherm = Frame()
+scherm.master.title("Mandelbrot")
+scherm.configure(width=450, height=600)
+scherm.pack()
+
+font=("Arial", 10)
+labelx= Label(scherm, font=font, text="Middenpunt x:"); labelx.place(x=10,y= 20);
+labely = Label(scherm, font=font, text="Middenpunt y:"); labely.place(x=10,y= 50);
+labels = Label(scherm, font=font, text="Schaal:"); labels.place(x=10,y=80);
+labela = Label(scherm, font=font, text="Maximaal aantal:"); labela.place(x=10,y=110);
+inputx = Entry(scherm, font=font, width=10); inputx.place(x=120,y= 20); inputx.insert(0, int(0))
+inputy = Entry(scherm, font=font, width=10); inputy.place(x=120,y= 50); inputy.insert(0, int(0))
+inputs= Entry(scherm, font=font, width=10); inputs.place(x=120,y=80); inputs.insert(0, float(0.01))
+inputa= Entry(scherm, font=font, width=10); inputa.place(x=120,y=110); inputa.insert(0, int(100))
+grafiek = Label(scherm, background="lightgrey"); grafiek.place(x=10,y=150)
+nulpunt = Label(scherm); nulpunt.place(x=200,y=10)
+knop = Button(scherm, text="Plot!", width=10); knop.place (x=200,y=110)
+sliderred = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
+slidergreen = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
+sliderblue = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
+sliderred.place(x=10, y = 460)
+sliderblue.place(x=10, y = 500)
+slidergreen.place(x=10, y = 540)
+
+  
+
+a=0; b=0; c=0; herhalingen=100 # globale toestand-variabelen
+breed=300; hoog=300
+plaatje = Image.new(mode="RGBA", size=(breed,hoog)) 
+
+def Mandelpunt():
+    for q in range (0,breed):
+        for z in range (0,hoog):
+            x = (a - c*(breed)/2) + (c*q)
+            y = (b + c*(hoog)/2) - (c*z)
+            f = x
+            g = y
+            getal = 1
+            while ((math.sqrt(f**2 + g**2)) < 2) and (getal < herhalingen):
+                d = f 
+                e = g 
+                f = (d*d) - (e*e) + x
+                g = (d*e*2) + y
+                getal = getal + 1
+            if getal == herhalingen:
+                red = 0
+                blue = 0
+                green = 0
+            elif getal < 2.5:
+                blue= int(sliderblue.get() * getal*2.5)
+                red = int(sliderred.get() / getal*2.5)
+                green = int(slidergreen.get() / getal*2.5)
+            elif getal < 5:
+                blue= int(sliderblue.get() / getal*2.5)
+                red = int(sliderred.get() * getal*2.5)
+                green = int(slidergreen.get() / getal*2.5)
+            else:
+                blue= int(sliderblue.get() / getal*2.5)
+                red = int(sliderred.get() / getal*2.5)
+                green = int(slidergreen.get() * getal*2.5)
+
+
+
+ 
+            plaatje.putpixel( (q,z), (blue,red,green) )
+    global foto    
+    foto = PhotoImage(plaatje)
+    grafiek.configure(image=foto)
+
+
+def boxVeranderd(ea):
+    global a, b, c, herhalingen
+    try:
+        a = float(inputx.get()); inputx.configure(background="white")
+        b = float(inputy.get()); inputy.configure(background="white")
+        c = float(inputs.get()); inputs.configure(background="white")
+        herhalingen = int(inputa.get()); inputa.configure(background="white")
+        Mandelpunt()
+        nulpunt.configure(text=())
+    except Exception as exc:
+            nulpunt.configure(text=str(exc))
+
+def inzoom(ea):
+    c = float(inputs.get())
+    f = c/10
+
+    inputx.delete(0, 'end')
+    inputy.delete(0, 'end')
+    inputs.delete(0, 'end')
+    
+    Xx = float((a - c*(breed)/2) + (c*ea.x))
+    Yy = float((b + c*(hoog)/2) - (c*ea.y))
+
+    inputx.insert(0, float(Xx))
+    inputy.insert(0, float(Yy))
+    inputs.insert(0, float(f))
+
+    boxVeranderd(None)
+
+
+def uitzoom(ea):
+    c = float(inputs.get())
+    f = c*10
+
+    inputx.delete(0, 'end')
+    inputy.delete(0, 'end')
+    inputs.delete(0, 'end')
+    
+    Xx = float((a - c*(breed)/2) + (c*ea.x))
+    Yy = float((b + c*(hoog)/2) - (c*ea.y))
+
+    inputx.insert(0, float(Xx))
+    inputy.insert(0, float(Yy))
+    inputs.insert(0, float(f))
+
+    boxVeranderd(None)
+        
+knop.bind("<Button-1>", boxVeranderd)
+grafiek.bind("<Button-1>", inzoom)
+grafiek.bind("<Button-3>", uitzoom)
+
+boxVeranderd(None)
+scherm.mainloop()
+
