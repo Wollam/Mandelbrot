@@ -1,4 +1,4 @@
-from tkinter import Frame, Label, Entry, Button, Scale 
+from tkinter import Frame, Label, Entry, Button, Scale
 from PIL.ImageDraw import Draw
 from PIL.ImageTk import PhotoImage
 from PIL import Image
@@ -6,7 +6,7 @@ import math
 
 scherm = Frame()
 scherm.master.title("Mandelbrot")
-scherm.configure(width=450, height=500)
+scherm.configure(width=450, height=600)
 scherm.pack()
 
 font=("Arial", 10)
@@ -21,8 +21,13 @@ inputa= Entry(scherm, font=font, width=10); inputa.place(x=120,y=110); inputa.in
 grafiek = Label(scherm, background="lightgrey"); grafiek.place(x=10,y=150)
 nulpunt = Label(scherm); nulpunt.place(x=200,y=10)
 knop = Button(scherm, text="Plot!", width=10); knop.place (x=200,y=110)
-slider = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
-slider.place(x=10, y = 460)
+sliderred = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
+slidergreen = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
+sliderblue = Scale(scherm, from_=1, to=255, orient="horizontal", length=213)
+sliderred.place(x=10, y = 460)
+sliderblue.place(x=10, y = 500)
+slidergreen.place(x=10, y = 540)
+
   
 
 a=0; b=0; c=0; herhalingen=100 # globale toestand-variabelen
@@ -43,16 +48,24 @@ def Mandelpunt():
                 f = (d*d) - (e*e) + x
                 g = (d*e*2) + y
                 getal = getal + 1
-           if getal == herhalingen:
-                h = slider.get()/256*100/getal * 2.5
-                red = int(h)
-                blue = int(h)
-                green = int(h)
+            if getal == herhalingen:
+                red = 0
+                blue = 0
+                green = 0
+            elif getal < 2.5:
+                blue= int(sliderblue.get() * getal*2.5)
+                red = int(sliderred.get() / getal*2.5)
+                green = int(slidergreen.get() / getal*2.5)
+            elif getal < 5:
+                blue= int(sliderblue.get() / getal*2.5)
+                red = int(sliderred.get() * getal*2.5)
+                green = int(slidergreen.get() / getal*2.5)
             else:
-                h = slider.get()/256*100/getal * 2.5
-                blue= int(255-h)
-                red = int(h)
-                green = int(127.5*h)
+                blue= int(sliderblue.get() / getal*2.5)
+                red = int(sliderred.get() / getal*2.5)
+                green = int(slidergreen.get() * getal*2.5)
+
+
 
  
             plaatje.putpixel( (q,z), (blue,red,green) )
@@ -75,7 +88,7 @@ def boxVeranderd(ea):
 
 def inzoom(ea):
     c = float(inputs.get())
-    f = c/10
+    f = c/20
 
     inputx.delete(0, 'end')
     inputy.delete(0, 'end')
@@ -93,7 +106,7 @@ def inzoom(ea):
 
 def uitzoom(ea):
     c = float(inputs.get())
-    f = c*10
+    f = c*20
 
     inputx.delete(0, 'end')
     inputy.delete(0, 'end')
@@ -114,4 +127,3 @@ grafiek.bind("<Button-3>", uitzoom)
 
 boxVeranderd(None)
 scherm.mainloop()
-
